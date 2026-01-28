@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="az">
+  <head>
+    <meta charset="UTF-8" />
+    <title>GBM Simulyasiya</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+    <link rel="stylesheet" href="./styles.css" />
+
+    <script type="importmap">
+      {
+        "imports": {
+          "chart.js/auto": "https://esm.sh/chart.js@4.4.1/auto"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="controls">
+        <div class="control-group">
+          <label>
+            Başlanğıc qiymət (S₀)
+            <input id="s0" type="number" min="0.01" step="1" value="100" />
+          </label>
+        </div>
+
+        <div class="control-group">
+          <label>
+            Drift μ (illik, %)
+            <input id="mu" type="number" step="0.5" value="5" />
+          </label>
+        </div>
+
+        <div class="control-group">
+          <label>
+            Volatillik σ (illik, %)
+            <input id="sigma" type="number" step="1" value="20" />
+          </label>
+        </div>
+
+        <div class="control-group">
+          <label>
+            Ümumi zaman T (illə)
+            <input id="T" type="number" min="0.01" step="0.25" value="1" />
+          </label>
+        </div>
+
+        <div class="control-group">
+          <label>
+            Addım sayı (N)
+            <input id="steps" type="number" min="10" max="365" step="10" value="100" />
+          </label>
+        </div>
+
+        <div class="control-group">
+          <label>
+            Ssenari sayı
+            <input id="scenarios" type="number" min="1" max="50" step="1" value="10" />
+          </label>
+        </div>
+
+        <div class="control-group">
+          <label>
+            Metod
+            <select id="scheme">
+              <option value="euler">Euler–Maruyama</option>
+              <option value="milstein">Milstein</option>
+              <option value="exact">Analitik həll (GBM)</option>
+            </select>
+          </label>
+        </div>
+
+        <button id="simulateButton">Simulyasiya et</button>
+      </div>
+
+      <div class="chart-container">
+        <canvas id="gbmChart"></canvas>
+      </div>
+
+      <div id="stats" class="stats">
+        <span id="meanFinalValue"></span>
+      </div>
+
+      <div class="notes">
+        <h2>Həndəsi Braun Hərəkəti (GBM) və Euler-Maruyama</h2>
+
+        <p>
+          GBM aşağıdakı Stoxastik Diferensial Tənliklə (SDT) verilmişdir:
+        </p>
+
+        <p class="formula">
+          dS<sub>t</sub> = μ S<sub>t</sub> dt + σ S<sub>t</sub> dW<sub>t</sub>
+        </p>
+
+        <p>
+          Simulyasiya üçün kəsilməz zaman əvəzinə diskret zaman addımları Δt istifadə edirik və
+          <strong>Euler–Maruyama üsulundan</strong> yararlanırıq:
+        </p>
+
+        <p class="formula">
+          S<sub>t+Δt</sub> = S<sub>t</sub> + μ S<sub>t</sub> Δt + σ S<sub>t</sub> √Δt · Z<sub>t</sub>
+        </p>
+
+        <p>
+          Burada:
+        </p>
+        <ul>
+          <li>S<sub>t</sub> — cari qiymət</li>
+          <li>μ — gözlənilən orta gəlir (drift, illik)</li>
+          <li>σ — volatillik (diffuziya, illik)</li>
+          <li>Δt — zaman addımının uzunluğu (T / N)</li>
+          <li>Z<sub>t</sub> — standart normal təsadüfi dəyişən, Z ~ 𝒩(0, 1)</li>
+        </ul>
+
+        <p>
+          Parametrlər panelində:
+        </p>
+        <ul>
+          <li><strong>Başlanğıc qiymət S₀</strong> — trayektoriyaların çıxış nöqtəsi</li>
+          <li><strong>Drift μ (%)</strong> — illik orta gözlənilən gəlir</li>
+          <li><strong>Volatillik σ (%)</strong> — illik qiymət dəyişkənliyi</li>
+          <li><strong>Ümumi zaman T</strong> — simulyasiya horizontu (illə)</li>
+          <li><strong>Addım sayı N</strong> — T intervalının necə xırda bölündüyü</li>
+          <li><strong>Ssenari sayı</strong> — neçə müxtəlif GBM trayektoriyası çəkiləcək</li>
+        </ul>
+      </div>
+    </div>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
+

@@ -1,0 +1,182 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top left, #fdf7ec 0, #f3f1eb 35%, #e8ebe6 100%);
+  color: #222;
+}
+
+#app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  gap: 10px;
+}
+
+/* Controls */
+
+.controls {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px 8px;
+  align-items: end;
+  padding: 8px 10px;
+  background: linear-gradient(135deg, #ffffff 0%, #fdfaf3 35%, #f8f3e8 100%);
+  border-radius: 12px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(202, 188, 150, 0.6);
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+label {
+  font-size: 11px;
+  color: #4b4b3c;
+  font-weight: 500;
+}
+
+input,
+select {
+  font-family: inherit;
+}
+
+input[type="number"],
+select {
+  width: 100%;
+  padding: 6px 8px;
+  font-size: 13px;
+  border-radius: 8px;
+  border: 1px solid #d6d0c3;
+  background: #fffdf8;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+input[type="number"]:focus,
+select:focus {
+  outline: none;
+  border-color: #2f7f4f;
+  box-shadow: 0 0 0 1px rgba(47, 127, 79, 0.15), 0 0 0 4px rgba(47, 127, 79, 0.06);
+  background: #ffffff;
+}
+
+button {
+  padding: 8px 10px;
+  font-size: 13px;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(135deg, #2f7f4f, #3c9961);
+  color: #fff;
+  cursor: pointer;
+  touch-action: manipulation;
+  box-shadow: 0 4px 10px rgba(47, 127, 79, 0.35);
+  transition: transform 0.1s ease, box-shadow 0.1s ease, filter 0.1s ease;
+}
+
+button:active {
+  transform: scale(0.97) translateY(1px);
+  background: #276841;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+/* Make button full-width on narrow screens */
+
+@media (max-width: 600px) {
+  .controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #simulateButton {
+    grid-column: span 2;
+  }
+}
+
+/* Chart area */
+
+.chart-container {
+  flex: 1;
+  min-height: 0;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 6px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(207, 205, 190, 0.8);
+  display: flex;
+}
+
+.chart-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Stats */
+
+.stats {
+  font-size: 11px;
+  padding: 6px 8px;
+  background: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #e0ddcf;
+  color: #333;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* Tədris qeydləri */
+
+.notes {
+  margin-top: 6px;
+  padding: 10px 11px;
+  background: radial-gradient(circle at top left, #fffef7 0, #fff9e7 40%, #fff4da 100%);
+  border-radius: 12px;
+  border: 1px solid #e3ddc8;
+  font-size: 11px;
+  line-height: 1.45;
+  max-height: 40vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 20px rgba(179, 168, 135, 0.18);
+}
+
+.notes h2 {
+  margin: 0 0 4px;
+  font-size: 12px;
+  font-weight: 650;
+  color: #33301f;
+  letter-spacing: 0.02em;
+}
+
+.notes p {
+  margin: 4px 0;
+}
+
+.notes ul {
+  margin: 4px 0 0 16px;
+  padding: 0;
+}
+
+.notes li {
+  margin: 2px 0;
+}
+
+.notes .formula {
+  font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  background: #f7f1de;
+  padding: 4px 6px;
+  border-radius: 6px;
+  display: inline-block;
+  border: 1px solid rgba(204, 185, 132, 0.6);
+}
+
